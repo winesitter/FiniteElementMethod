@@ -1,0 +1,851 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{FiniteElementApproach\_1D}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{k}{def} \PY{n+nf}{Lagrange\PYZus{}polynomial}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n}{points}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Compute lagrangian interpolation polynomial }
+         \PY{l+s+sd}{    over domain x at specific points \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{n}{p} \PY{o}{=} \PY{l+m+mi}{1}
+             \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{points}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{k} \PY{o}{!=} \PY{n}{i}\PY{p}{:}
+                     \PY{n}{p} \PY{o}{*}\PY{o}{=} \PY{p}{(}\PY{n}{x} \PY{o}{\PYZhy{}} \PY{n}{points}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{points}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{points}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{)}
+             \PY{k}{return} \PY{n}{p}
+         
+         \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{k}{def} \PY{n+nf}{Lagrange\PYZus{}polynomial\PYZus{}basis}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{points}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Compute complete basis of lagrange polynomials }
+         \PY{l+s+sd}{    at specified points \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{k}{return} \PY{p}{[}\PY{n}{Lagrange\PYZus{}polynomial}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n}{points}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{k}{def} \PY{n+nf}{Chebyshev\PYZus{}nodes}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Computes Chebyshev nodes in a specific range\PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{n}{cos}\PY{p}{,} \PY{n}{pi}
+             \PY{k}{return} \PY{p}{[}\PY{l+m+mf}{0.5}\PY{o}{*}\PY{p}{(}\PY{n}{a}\PY{o}{+}\PY{n}{b}\PY{p}{)} \PY{o}{+} \PY{l+m+mf}{0.5}\PY{o}{*}\PY{p}{(}\PY{n}{b}\PY{o}{\PYZhy{}}\PY{n}{a}\PY{p}{)}\PY{o}{*}\PY{n}{cos}\PY{p}{(}\PY{p}{(}\PY{l+m+mf}{2.}\PY{o}{*}\PY{n}{i}\PY{o}{+}\PY{l+m+mf}{1.}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mf}{2.}\PY{o}{*}\PY{p}{(}\PY{n}{N}\PY{o}{+}\PY{l+m+mf}{1.}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{n}{pi}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{k}{def} \PY{n+nf}{Uniform\PYZus{}nodes}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Computes uniformly spaced nodes\PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{n}{h} \PY{o}{=} \PY{p}{(}\PY{n}{b}\PY{o}{\PYZhy{}}\PY{n}{a}\PY{p}{)} \PY{o}{/} \PY{n}{N}
+             \PY{k}{return} \PY{p}{[}\PY{n}{a} \PY{o}{+} \PY{n}{i}\PY{o}{*}\PY{n}{h} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{k}{def} \PY{n+nf}{init\PYZus{}elements}\PY{p}{(}\PY{n}{Omega}\PY{p}{,} \PY{n}{N}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Function initializes a 2D array which defines N+1 global }
+         \PY{l+s+sd}{        1D finite elements, with n+1 nodes inside each element}
+         \PY{l+s+sd}{        in the domain Omega = (x0, x1) \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{n}{node\PYZus{}spacing} \PY{o}{=} \PY{n}{kwargs}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{node\PYZus{}spacing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uniform}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{if} \PY{p}{(}\PY{n}{node\PYZus{}spacing} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uniform}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{nodes} \PY{o}{=} \PY{n}{Uniform\PYZus{}nodes}\PY{p}{(}\PY{n}{Omega}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{Omega}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{n} \PY{o}{+} \PY{n}{N}\PY{o}{*}\PY{n}{n}\PY{p}{)}
+             \PY{k}{elif} \PY{p}{(}\PY{n}{node\PYZus{}spacing} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{chebyshev}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{nodes} \PY{o}{=} \PY{n}{Chebyshev\PYZus{}nodes}\PY{p}{(}\PY{n}{Omega}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{Omega}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{n} \PY{o}{+} \PY{n}{N}\PY{o}{*}\PY{n}{n}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Initialize elements}
+             \PY{n}{elements} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{n}{j}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{N}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{j}\PY{o}{*}\PY{p}{(}\PY{n}{n}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{j}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{n}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{]} \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+             \PY{k}{return} \PY{p}{(}\PY{n}{nodes}\PY{p}{,} \PY{n}{elements}\PY{p}{)}
+\end{Verbatim}
+
+
+    \section{Finite Element Method in 1D using Least Squares
+Method}\label{finite-element-method-in-1d-using-least-squares-method}
+
+\subsection{Element matrix}\label{element-matrix}
+
+\subsubsection{Indice notation}\label{indice-notation}
+
+\begin{itemize}
+\tightlist
+\item
+  \(e\): Element indice
+\item
+  \(r\): local node indice
+\item
+  \(i\): global node indice
+\item
+  \(i = q(e,r)\): Mapping of local node number \(r\) in element \(e\) to
+  the global node number \(i\). Mathematical notation for
+  \(i = elements[e][r]\)
+\end{itemize}
+
+\subsubsection{Element matrix
+definition}\label{element-matrix-definition}
+
+\((d+1)\times(d+1)\)-Matrix, that stores the local contributions \[
+A_{i,j}^{(e)} 
+= \int_{\Omega^{(e)}} \phi_i \phi_j \text{d}x 
+= \int_{\Omega^{(e)}} \phi_{q(e,r)} \phi_{q(e,s)} \text{d}x
+\]
+
+Let \(I_d = \{0,...,d\}\) be the valid indices of \(r\) and \(s\). We
+then introduce the notation \[
+\tilde{A}^{(e)} = \left\{\tilde{A}^{(e)}_{r,s}\right\}, \qquad r,s \in I_d
+\] For example, \(d=2\) leads to \[
+\tilde{A}^{(e)} = 
+\begin{bmatrix}
+\tilde{A}^{(e)}_{0,0} & \tilde{A}^{(e)}_{0,1} & \tilde{A}^{(e)}_{0,2} \\
+\tilde{A}^{(e)}_{1,0} & \tilde{A}^{(e)}_{1,1} & \tilde{A}^{(e)}_{1,2} \\
+\tilde{A}^{(e)}_{2,0} & \tilde{A}^{(e)}_{2,1} & \tilde{A}^{(e)}_{2,2} \\
+\end{bmatrix}
+\]
+
+\subsubsection{Affine mapping}\label{affine-mapping}
+
+Instead of computing the integrals in \(\tilde{A}^{(e)}\) for every
+element domain \(\Omega^{(e)} = [x_L, x_R]\), a reference element is
+introduced over the domain \([-1,1]\).
+
+A linear affine mapping from \(X \in [-1,1]\) to \(x \in \Omega^{(e)}\)
+leads to \[
+x 
+= \frac{1}{2} (x_L + x_R) + \frac{1}{2} (x_R - x_L) X 
+= x_m + \frac{1}{2} h X 
+\]
+
+The integration over the reference element is a matter of changing the
+integration variable from \(x\) to \(X\). Introducing the basis function
+\[
+\tilde{\phi}_r(X) =  \phi_{q(e,r)}\left(x(X)\right)
+\] associated with the local node \(r\) in the reference element. The
+element matrix entry for the reference element reads then \[
+\tilde{A}^{(e)}_{r,s} 
+= \int_{\Omega^{(e)}} \phi_{q(e,r)} \phi_{q(e,s)} \text{d}x
+= \int_{-1}^{1} \tilde{\phi}_r(X) \tilde{\phi}_s(X) \frac{\text{d}x}{\text{d}X} \text{d}X
+= \int_{-1}^{1} \tilde{\phi}_r(X) \tilde{\phi}_s(X) \text{det}(J)  \text{d}X
+\] Hereby the factor \(\frac{\text{d}x}{\text{d}X}\) is the determinant
+of the Jacobian matrix of the mapping between the coordinate systemxs.
+For 1D problems, this factor reduces to \(\text{det}(J) = h/2\). The
+corresponding entries for the element right hand side of the linear
+equation system reads \[
+\tilde{b}_{r}^{(e)} 
+= \int_{\Omega^{(e)}} f(x) \phi_{q(e,r)}(x) \text{d}x
+= \int_{-1}^1 f\left(x(X)\right) \tilde{\phi}_r(X) \text{det}(J)  \text{d}X
+\]
+
+The \(\tilde{\phi}_r(X)\) fuctions are the Lagrangian polynomials
+defined through the local nodes of the reference element.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} https://github.com/hplgit/INF5620/blob/master/src/fem/fe\PYZus{}approx1D.py}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{integrate}
+        
+        \PY{c+c1}{\PYZsh{}=======================================================}
+        \PY{c+c1}{\PYZsh{} Implementation of the Finite Element Method in 1D}
+        \PY{c+c1}{\PYZsh{} for the approximateion of a function f(x)}
+        \PY{c+c1}{\PYZsh{}=======================================================}
+        
+        \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{k}{def} \PY{n+nf}{Lagrange\PYZus{}polynomial}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n}{points}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Compute lagrangian interpolation polynomial }
+        \PY{l+s+sd}{    over domain x at specific points \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{p} \PY{o}{=} \PY{l+m+mi}{1}
+            \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{points}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{k}{if} \PY{n}{k} \PY{o}{!=} \PY{n}{i}\PY{p}{:}
+                    \PY{n}{p} \PY{o}{*}\PY{o}{=} \PY{p}{(}\PY{n}{x} \PY{o}{\PYZhy{}} \PY{n}{points}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{points}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{points}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{)}
+            \PY{k}{return} \PY{n}{p}
+        
+        \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{k}{def} \PY{n+nf}{phi\PYZus{}r}\PY{p}{(}\PY{n}{r}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{d}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Defines a Lagrangian basis function for the  }
+        \PY{l+s+sd}{    local node r of an reference element of }
+        \PY{l+s+sd}{    degree d \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{nodes} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.}\PY{p}{,} \PY{l+m+mf}{1.}\PY{p}{,} \PY{n}{d}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{k}{return} \PY{n}{Lagrange\PYZus{}polynomial}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{r}\PY{p}{,} \PY{n}{nodes}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{k}{def} \PY{n+nf}{basis}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{d}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Create all basis functions for a reference }
+        \PY{l+s+sd}{    element of degree d}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{phi} \PY{o}{=} \PY{p}{[}\PY{n}{phi\PYZus{}r}\PY{p}{(}\PY{n}{r}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{d}\PY{p}{)} \PY{k}{for} \PY{n}{r} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{d}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+            \PY{k}{return} \PY{n}{phi}
+        
+        \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{k}{def} \PY{n+nf}{element\PYZus{}matrix}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{phi}\PY{p}{,} \PY{n}{Omega\PYZus{}e}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Creates the element matrix for an element over}
+        \PY{l+s+sd}{    its local domain Omega\PYZus{}e=[x0\PYZus{}e, x1\PYZus{}e] and its }
+        \PY{l+s+sd}{    basis functions stored in phi }
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{n} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{phi}\PY{p}{)}
+            \PY{n}{A\PYZus{}e} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{n}\PY{p}{)}\PY{p}{)}
+            \PY{n}{h} \PY{o}{=} \PY{n}{Omega\PYZus{}e}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{Omega\PYZus{}e}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            \PY{n}{detJ} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{o}{*}\PY{n}{h}
+            \PY{k}{for} \PY{n}{r} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                \PY{k}{for} \PY{n}{s} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{A\PYZus{}e}\PY{p}{[}\PY{n}{r}\PY{p}{,} \PY{n}{s}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{trapz}\PY{p}{(}\PY{n}{phi}\PY{p}{[}\PY{n}{r}\PY{p}{]}\PY{o}{*}\PY{n}{phi}\PY{p}{[}\PY{n}{s}\PY{p}{]}\PY{o}{*}\PY{n}{detJ}\PY{p}{,} \PY{n}{X}\PY{p}{)}
+                    \PY{n}{A\PYZus{}e}\PY{p}{[}\PY{n}{s}\PY{p}{,} \PY{n}{r}\PY{p}{]} \PY{o}{=} \PY{n}{A\PYZus{}e}\PY{p}{[}\PY{n}{r}\PY{p}{,} \PY{n}{s}\PY{p}{]}
+            \PY{k}{return} \PY{n}{A\PYZus{}e}
+        
+        \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{k}{def} \PY{n+nf}{element\PYZus{}rhs}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{f}\PY{p}{,} \PY{n}{phi}\PY{p}{,} \PY{n}{Omega\PYZus{}e}\PY{p}{)}\PY{p}{:}
+            \PY{n}{n} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{phi}\PY{p}{)}
+            \PY{n}{b\PYZus{}e} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+            \PY{n}{h} \PY{o}{=} \PY{n}{Omega\PYZus{}e}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{Omega\PYZus{}e}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            \PY{n}{detJ} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{o}{*}\PY{n}{h}
+            \PY{c+c1}{\PYZsh{} Compute mapping from f(x) to f(x(X))}
+            \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{Omega\PYZus{}e}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{Omega\PYZus{}e}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}
+            \PY{n}{f\PYZus{}map} \PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+            \PY{k}{for} \PY{n}{r} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                \PY{n}{b\PYZus{}e}\PY{p}{[}\PY{n}{r}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{trapz}\PY{p}{(}\PY{n}{f\PYZus{}map}\PY{o}{*}\PY{n}{phi}\PY{p}{[}\PY{n}{r}\PY{p}{]}\PY{o}{*}\PY{n}{detJ}\PY{p}{,} \PY{n}{X}\PY{p}{)}
+            \PY{k}{return} \PY{n}{b\PYZus{}e}
+        
+        
+        
+        \PY{c+c1}{\PYZsh{} Test the fem\PYZhy{}functions}
+        \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{n}{d} \PY{o}{=} \PY{l+m+mi}{1}
+        \PY{n}{Omega\PYZus{}e} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{501}\PY{p}{)}
+        \PY{n}{f} \PY{o}{=} \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Analytical solutions }
+        \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Analytical soltion to element matrix and element rhs (only for d=1): }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{h} \PY{o}{=} \PY{n}{Omega\PYZus{}e}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{Omega\PYZus{}e}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{xm} \PY{o}{=} \PY{l+m+mf}{0.5} \PY{o}{*} \PY{p}{(}\PY{n}{Omega\PYZus{}e}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{Omega\PYZus{}e}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{h: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{h}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{A[i][i]: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{h}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{A[i][j]: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{h}\PY{o}{/}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b[0]: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{l+m+mf}{1.}\PY{o}{/}\PY{l+m+mf}{24.}\PY{p}{)} \PY{o}{*} \PY{n}{h}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3} \PY{o}{+} \PY{p}{(}\PY{n}{xm}\PY{o}{/}\PY{l+m+mf}{6.}\PY{p}{)}\PY{o}{*}\PY{n}{h}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{l+m+mf}{1.}\PY{o}{/}\PY{l+m+mf}{12.}\PY{p}{)}\PY{o}{*}\PY{n}{h}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{\PYZhy{}} \PY{l+m+mf}{0.5}\PY{o}{*}\PY{n}{xm}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{h} \PY{o}{+} \PY{l+m+mf}{0.5}\PY{o}{*}\PY{n}{h}\PY{o}{*}\PY{n}{xm}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b[1]: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{l+m+mf}{1.}\PY{o}{/}\PY{l+m+mf}{24.}\PY{p}{)} \PY{o}{*} \PY{n}{h}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{xm}\PY{o}{/}\PY{l+m+mf}{6.}\PY{p}{)}\PY{o}{*}\PY{n}{h}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{p}{(}\PY{l+m+mf}{1.}\PY{o}{/}\PY{l+m+mf}{12.}\PY{p}{)}\PY{o}{*}\PY{n}{h}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{\PYZhy{}} \PY{l+m+mf}{0.5}\PY{o}{*}\PY{n}{xm}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{h} \PY{o}{+} \PY{l+m+mf}{0.5}\PY{o}{*}\PY{n}{h}\PY{o}{*}\PY{n}{xm}\PY{p}{)}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        
+        \PY{c+c1}{\PYZsh{} Numerical solution}
+        \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Numerical soltion to element matrix and element rhs: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{phi} \PY{o}{=} \PY{n}{basis}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{d}\PY{p}{)}
+        \PY{n}{A\PYZus{}e} \PY{o}{=} \PY{n}{element\PYZus{}matrix}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{phi}\PY{p}{,} \PY{n}{Omega\PYZus{}e}\PY{p}{)}
+        \PY{n}{b\PYZus{}e} \PY{o}{=} \PY{n}{element\PYZus{}rhs}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{f}\PY{p}{,} \PY{n}{phi}\PY{p}{,} \PY{n}{Omega\PYZus{}e}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{A\PYZus{}e}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{b\PYZus{}e}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+Analytical soltion to element matrix and element rhs (only for d=1): 
+h: 1
+A[i][i]: 0.3333333333333333
+A[i][j]: 0.16666666666666666
+b[0]: 0.08333333333333334
+b[1]: 0.08333333333333331
+
+Numerical soltion to element matrix and element rhs: 
+[[0.333334 0.166666]
+ [0.166666 0.333334]]
+[0.083333 0.083333]
+
+    \end{Verbatim}
+
+    \subsection{Global matrix / Finite Element Assembly
+Matrix}\label{global-matrix-finite-element-assembly-matrix}
+
+The global matrix entries \(A_{i,j}\) are the sum of the local element
+matrix entries \[
+A_{i,j} = \int_{\Omega} \phi_i \phi_j \text{d}x = \sum_{e=0}^{N} A_{i,j}^{(e)}
+\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+         \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{pyplot} \PY{k}{as} \PY{n}{plt}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{k}{def} \PY{n+nf}{Uniform\PYZus{}nodes}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Computes uniformly spaced nodes\PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{n}{h} \PY{o}{=} \PY{p}{(}\PY{n}{b}\PY{o}{\PYZhy{}}\PY{n}{a}\PY{p}{)} \PY{o}{/} \PY{n}{N}
+             \PY{k}{return} \PY{p}{[}\PY{n}{a} \PY{o}{+} \PY{n}{i}\PY{o}{*}\PY{n}{h} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{k}{def} \PY{n+nf}{init\PYZus{}mesh}\PY{p}{(}\PY{n}{Omega}\PY{p}{,} \PY{n}{N}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Function initializes a 2D array which defines N+1 global }
+         \PY{l+s+sd}{        1D finite elements, with n+1 nodes inside each element}
+         \PY{l+s+sd}{        in the domain Omega = (x0, x1) \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{n}{node\PYZus{}spacing} \PY{o}{=} \PY{n}{kwargs}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{node\PYZus{}spacing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uniform}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{if} \PY{p}{(}\PY{n}{node\PYZus{}spacing} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uniform}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{nodes} \PY{o}{=} \PY{n}{Uniform\PYZus{}nodes}\PY{p}{(}\PY{n}{Omega}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{Omega}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{n} \PY{o}{+} \PY{n}{N}\PY{o}{*}\PY{n}{n}\PY{p}{)}
+             \PY{k}{elif} \PY{p}{(}\PY{n}{node\PYZus{}spacing} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{chebyshev}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{nodes} \PY{o}{=} \PY{n}{Chebyshev\PYZus{}nodes}\PY{p}{(}\PY{n}{Omega}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{Omega}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{n} \PY{o}{+} \PY{n}{N}\PY{o}{*}\PY{n}{n}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Initialize elements}
+             \PY{n}{elements} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{n}{j}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{N}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{j}\PY{o}{*}\PY{p}{(}\PY{n}{n}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{j}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{n}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{]} \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+             \PY{k}{return} \PY{p}{(}\PY{n}{nodes}\PY{p}{,} \PY{n}{elements}\PY{p}{)}
+         
+         
+         \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{k}{def} \PY{n+nf}{assemble}\PY{p}{(}\PY{n}{nodes}\PY{p}{,} \PY{n}{elements}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{phi}\PY{p}{,} \PY{n}{f}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Function to assemble the global linear system of }
+         \PY{l+s+sd}{    equations A*x=b for a given mesh which is defined }
+         \PY{l+s+sd}{    through nodes and elements}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{n}{N\PYZus{}n}\PY{p}{,} \PY{n}{N\PYZus{}e} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{nodes}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{elements}\PY{p}{)}
+             \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{N\PYZus{}n}\PY{p}{,} \PY{n}{N\PYZus{}n}\PY{p}{)}\PY{p}{)}
+             \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{N\PYZus{}n}\PY{p}{)}
+             
+             \PY{k}{for} \PY{n}{e} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N\PYZus{}e}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{Omega\PYZus{}e} \PY{o}{=} \PY{p}{(}\PY{n}{nodes}\PY{p}{[}\PY{n}{elements}\PY{p}{[}\PY{n}{e}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{nodes}\PY{p}{[}\PY{n}{elements}\PY{p}{[}\PY{n}{e}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{A\PYZus{}e} \PY{o}{=} \PY{n}{element\PYZus{}matrix}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{phi}\PY{p}{,} \PY{n}{Omega\PYZus{}e}\PY{p}{)}
+                 \PY{n}{b\PYZus{}e} \PY{o}{=} \PY{n}{element\PYZus{}rhs}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{f}\PY{p}{,} \PY{n}{phi}\PY{p}{,} \PY{n}{Omega\PYZus{}e}\PY{p}{)}
+                 
+                 \PY{k}{for} \PY{n}{r} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{elements}\PY{p}{[}\PY{n}{e}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{for} \PY{n}{s} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{elements}\PY{p}{[}\PY{n}{e}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{A}\PY{p}{[}\PY{n}{elements}\PY{p}{[}\PY{n}{e}\PY{p}{]}\PY{p}{[}\PY{n}{r}\PY{p}{]}\PY{p}{,} \PY{n}{elements}\PY{p}{[}\PY{n}{e}\PY{p}{]}\PY{p}{[}\PY{n}{s}\PY{p}{]}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{A\PYZus{}e}\PY{p}{[}\PY{n}{r}\PY{p}{,} \PY{n}{s}\PY{p}{]}
+                     \PY{n}{b}\PY{p}{[}\PY{n}{elements}\PY{p}{[}\PY{n}{e}\PY{p}{]}\PY{p}{[}\PY{n}{r}\PY{p}{]}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{b\PYZus{}e}\PY{p}{[}\PY{n}{r}\PY{p}{]}
+                 
+             \PY{k}{return} \PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{b}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{u\PYZus{}glob}\PY{p}{(}\PY{n}{nodes}\PY{p}{,} \PY{n}{elements}\PY{p}{,} \PY{n}{C}\PY{p}{,} \PY{n}{resolution}\PY{p}{)}\PY{p}{:}
+             \PY{n}{x\PYZus{}patches} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{u\PYZus{}patches} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{e} \PY{o+ow}{in} \PY{n}{elements}\PY{p}{:}
+                 \PY{p}{(}\PY{n}{x\PYZus{}L}\PY{p}{,} \PY{n}{x\PYZus{}R}\PY{p}{)} \PY{o}{=} \PY{p}{(}\PY{n}{nodes}\PY{p}{[}\PY{n}{e}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{nodes}\PY{p}{[}\PY{n}{e}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{d} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{e}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+                 \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{resolution}\PY{p}{)}
+                 \PY{n}{x} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{o}{*}\PY{p}{(}\PY{n}{x\PYZus{}L} \PY{o}{+} \PY{n}{x\PYZus{}R}\PY{p}{)} \PY{o}{+} \PY{l+m+mf}{0.5}\PY{o}{*}\PY{p}{(}\PY{n}{x\PYZus{}R} \PY{o}{\PYZhy{}} \PY{n}{x\PYZus{}L}\PY{p}{)}\PY{o}{*}\PY{n}{X}
+                 \PY{n}{x\PYZus{}patches}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+                 
+                 \PY{n}{u\PYZus{}element} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{resolution}\PY{p}{)}
+                 \PY{k}{for} \PY{n}{r} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{e}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{i} \PY{o}{=} \PY{n}{e}\PY{p}{[}\PY{n}{r}\PY{p}{]} \PY{c+c1}{\PYZsh{} global node indice}
+                     \PY{n}{u\PYZus{}element} \PY{o}{+}\PY{o}{=} \PY{n}{C}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{*} \PY{n}{phi\PYZus{}r}\PY{p}{(}\PY{n}{r}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{d}\PY{p}{)}
+                 \PY{n}{u\PYZus{}patches}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{u\PYZus{}element}\PY{p}{)}
+             \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{n}{x\PYZus{}patches}\PY{p}{)}
+             \PY{n}{u} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{n}{u\PYZus{}patches}\PY{p}{)}
+             \PY{k}{return} \PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{u}\PY{p}{)}
+             
+         \PY{c+c1}{\PYZsh{} Test assembly of linear equation system}
+         \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{k+kn}{from} \PY{n+nn}{numpy} \PY{k}{import} \PY{n}{tanh}\PY{p}{,} \PY{n}{pi}\PY{p}{,} \PY{n}{sin}\PY{p}{,} \PY{n}{cos}\PY{p}{,} \PY{n}{exp}
+         \PY{n}{d} \PY{o}{=} \PY{l+m+mi}{3}
+         \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{5}
+         
+         \PY{n}{Omega} \PY{o}{=} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{,} \PY{n}{pi}\PY{p}{)}
+         \PY{n}{f} \PY{o}{=} \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{o}{\PYZhy{}}\PY{n}{tanh}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{*} \PY{n}{sin}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{)} \PY{o}{*} \PY{n}{exp}\PY{p}{(}\PY{l+m+mf}{1.} \PY{o}{\PYZhy{}} \PY{l+m+mf}{0.75}\PY{o}{*} \PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.25}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Omega = (0, 1)}
+         \PY{c+c1}{\PYZsh{}f = lambda x: x*(1\PYZhy{}x)**8}
+         
+         
+         \PY{n}{elem\PYZus{}resolution} \PY{o}{=} \PY{l+m+mi}{40}
+         \PY{n}{x}   \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{Omega}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{Omega}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{elem\PYZus{}resolution}\PY{p}{)}
+         \PY{n}{X}   \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{d}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{phi} \PY{o}{=} \PY{n}{basis}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{d}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Initialize mesh}
+         \PY{p}{(}\PY{n}{nodes}\PY{p}{,} \PY{n}{elements}\PY{p}{)} \PY{o}{=} \PY{n}{init\PYZus{}mesh}\PY{p}{(}\PY{n}{Omega}\PY{p}{,} \PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{d}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Assemble the global linear equation system }
+         \PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{b}\PY{p}{)} \PY{o}{=} \PY{n}{assemble}\PY{p}{(}\PY{n}{nodes}\PY{p}{,} \PY{n}{elements}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{phi}\PY{p}{,} \PY{n}{f}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Solve the global linear equation system}
+         \PY{n}{C} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{b}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Compute the approximation u(x) to f(x)}
+         \PY{p}{(}\PY{n}{x\PYZus{}u}\PY{p}{,} \PY{n}{u}\PY{p}{)} \PY{o}{=} \PY{n}{u\PYZus{}glob}\PY{p}{(}\PY{n}{nodes}\PY{p}{,} \PY{n}{elements}\PY{p}{,} \PY{n}{C}\PY{p}{,} \PY{l+m+mi}{40}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Plot results}
+         \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{n}{element\PYZus{}edges} \PY{o}{=} \PY{p}{[}\PY{n}{nodes}\PY{p}{[}\PY{n}{elements}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{N}\PY{p}{)}\PY{p}{]}
+         \PY{n}{element\PYZus{}edges}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{nodes}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{set\PYZus{}size\PYZus{}inches}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+         
+         \PY{n}{e\PYZus{}plt} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{element\PYZus{}edges}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{n+nb}{len}\PY{p}{(}\PY{n}{element\PYZus{}edges}\PY{p}{)}\PY{p}{,} \PY{n}{ls}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{f\PYZus{}plt} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ls}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}f(x)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{u\PYZus{}plt} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}u}\PY{p}{,} \PY{n}{u}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ls}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}u(x)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f(x), u(x)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Finite Element Method in 1D using Collocation
+Method}\label{finite-element-method-in-1d-using-collocation-method}
+
+For the collocating finite element method, the entries in the element
+matrices and element right hand sides are not evaluated through
+integration. Instead the are calculated through: \[
+\tilde{A}^{(e)}_{r,s}  = \phi_r(x_s) \text{det}(J)
+\] \[
+\tilde{b}^{(e)}_{r} =  f(x_r) \text{det}(J)
+\] since \(\phi_r(x_s) = 1\) for \(r = s\) and \(0\) for all other
+nodes.
+
+Therefore, we do not need no longer the trapezoidal rule for the
+numerical integration of terms like
+\(\int_{\Omega^{(e)}} \phi_{q(e,r)} \phi_{q(e,s)} \text{d}x\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} https://github.com/hplgit/INF5620/blob/master/src/fem/fe\PYZus{}approx1D.py}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{pyplot} \PY{k}{as} \PY{n}{plt}
+        
+        \PY{c+c1}{\PYZsh{}=======================================================}
+        \PY{c+c1}{\PYZsh{} Implementation of the Finite Element Method in 1D}
+        \PY{c+c1}{\PYZsh{} for the approximateion of a function f(x)}
+        \PY{c+c1}{\PYZsh{}=======================================================}
+        
+        \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{k}{def} \PY{n+nf}{Uniform\PYZus{}nodes}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Computes uniformly spaced nodes\PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{h} \PY{o}{=} \PY{p}{(}\PY{n}{b}\PY{o}{\PYZhy{}}\PY{n}{a}\PY{p}{)} \PY{o}{/} \PY{n}{N}
+            \PY{k}{return} \PY{p}{[}\PY{n}{a} \PY{o}{+} \PY{n}{i}\PY{o}{*}\PY{n}{h} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{k}{def} \PY{n+nf}{init\PYZus{}mesh}\PY{p}{(}\PY{n}{Omega}\PY{p}{,} \PY{n}{N}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Function initializes a 2D array which defines N+1 global }
+        \PY{l+s+sd}{        1D finite elements, with n+1 nodes inside each element}
+        \PY{l+s+sd}{        in the domain Omega = (x0, x1) \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{node\PYZus{}spacing} \PY{o}{=} \PY{n}{kwargs}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{node\PYZus{}spacing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uniform}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{k}{if} \PY{p}{(}\PY{n}{node\PYZus{}spacing} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uniform}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                \PY{n}{nodes} \PY{o}{=} \PY{n}{Uniform\PYZus{}nodes}\PY{p}{(}\PY{n}{Omega}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{Omega}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{n} \PY{o}{+} \PY{n}{N}\PY{o}{*}\PY{n}{n}\PY{p}{)}
+            \PY{k}{elif} \PY{p}{(}\PY{n}{node\PYZus{}spacing} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{chebyshev}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                \PY{n}{nodes} \PY{o}{=} \PY{n}{Chebyshev\PYZus{}nodes}\PY{p}{(}\PY{n}{Omega}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{Omega}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{n} \PY{o}{+} \PY{n}{N}\PY{o}{*}\PY{n}{n}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} Initialize elements}
+            \PY{n}{elements} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{n}{j}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{N}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{j}\PY{o}{*}\PY{p}{(}\PY{n}{n}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{j}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{n}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{]} \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+            \PY{k}{return} \PY{p}{(}\PY{n}{nodes}\PY{p}{,} \PY{n}{elements}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{k}{def} \PY{n+nf}{Lagrange\PYZus{}polynomial}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n}{points}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Compute lagrangian interpolation polynomial }
+        \PY{l+s+sd}{    over domain x at specific points \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{p} \PY{o}{=} \PY{l+m+mi}{1}
+            \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{points}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{k}{if} \PY{n}{k} \PY{o}{!=} \PY{n}{i}\PY{p}{:}
+                    \PY{n}{p} \PY{o}{*}\PY{o}{=} \PY{p}{(}\PY{n}{x} \PY{o}{\PYZhy{}} \PY{n}{points}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{points}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{points}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{)}
+            \PY{k}{return} \PY{n}{p}
+        
+        \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{k}{def} \PY{n+nf}{phi\PYZus{}r}\PY{p}{(}\PY{n}{r}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{d}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Defines a Lagrangian basis function for the  }
+        \PY{l+s+sd}{    local node r of an reference element of }
+        \PY{l+s+sd}{    degree d \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{nodes} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.}\PY{p}{,} \PY{l+m+mf}{1.}\PY{p}{,} \PY{n}{d}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{k}{return} \PY{n}{Lagrange\PYZus{}polynomial}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{r}\PY{p}{,} \PY{n}{nodes}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{k}{def} \PY{n+nf}{basis}\PY{p}{(}\PY{n}{d}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Create all basis functions for a reference }
+        \PY{l+s+sd}{    element of degree d}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{d}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{phi} \PY{o}{=} \PY{p}{[}\PY{n}{phi\PYZus{}r}\PY{p}{(}\PY{n}{r}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{d}\PY{p}{)} \PY{k}{for} \PY{n}{r} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{d}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+            \PY{k}{return} \PY{n}{phi}
+        
+        \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{k}{def} \PY{n+nf}{element\PYZus{}matrix}\PY{p}{(}\PY{n}{phi}\PY{p}{,} \PY{n}{Omega\PYZus{}e}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Creates the element matrix for an element over}
+        \PY{l+s+sd}{    its local domain Omega\PYZus{}e=[x0\PYZus{}e, x1\PYZus{}e] and its }
+        \PY{l+s+sd}{    basis functions stored in phi }
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{n} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{phi}\PY{p}{)}
+            \PY{n}{A\PYZus{}e} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{n}\PY{p}{)}\PY{p}{)}
+            \PY{n}{h} \PY{o}{=} \PY{n}{Omega\PYZus{}e}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{Omega\PYZus{}e}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            \PY{n}{detJ} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{o}{*}\PY{n}{h}
+            \PY{k}{for} \PY{n}{r} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                \PY{k}{for} \PY{n}{s} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{A\PYZus{}e}\PY{p}{[}\PY{n}{r}\PY{p}{,} \PY{n}{s}\PY{p}{]} \PY{o}{=} \PY{n}{phi}\PY{p}{[}\PY{n}{r}\PY{p}{]}\PY{p}{[}\PY{n}{s}\PY{p}{]}\PY{o}{*}\PY{n}{detJ}
+                    \PY{n}{A\PYZus{}e}\PY{p}{[}\PY{n}{s}\PY{p}{,} \PY{n}{r}\PY{p}{]} \PY{o}{=} \PY{n}{A\PYZus{}e}\PY{p}{[}\PY{n}{r}\PY{p}{,} \PY{n}{s}\PY{p}{]}
+            \PY{k}{return} \PY{n}{A\PYZus{}e}
+        
+        \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{k}{def} \PY{n+nf}{element\PYZus{}rhs}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{phi}\PY{p}{,} \PY{n}{Omega\PYZus{}e}\PY{p}{)}\PY{p}{:}
+            \PY{n}{n} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{phi}\PY{p}{)}
+            \PY{n}{b\PYZus{}e} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+            \PY{n}{h} \PY{o}{=} \PY{n}{Omega\PYZus{}e}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{Omega\PYZus{}e}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            \PY{n}{detJ} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{o}{*}\PY{n}{h}
+            \PY{c+c1}{\PYZsh{} Compute mapping from f(x) to f(x(X))}
+            \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{Omega\PYZus{}e}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{Omega\PYZus{}e}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+            \PY{n}{f\PYZus{}map} \PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+            \PY{k}{for} \PY{n}{r} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                \PY{n}{b\PYZus{}e}\PY{p}{[}\PY{n}{r}\PY{p}{]} \PY{o}{=} \PY{n}{f\PYZus{}map}\PY{p}{[}\PY{n}{r}\PY{p}{]}\PY{o}{*}\PY{n}{detJ}
+            \PY{k}{return} \PY{n}{b\PYZus{}e}
+        
+        
+        \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{k}{def} \PY{n+nf}{assemble}\PY{p}{(}\PY{n}{nodes}\PY{p}{,} \PY{n}{elements}\PY{p}{,} \PY{n}{phi}\PY{p}{,} \PY{n}{f}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Function to assemble the global linear system of }
+        \PY{l+s+sd}{    equations A*x=b for a given mesh which is defined }
+        \PY{l+s+sd}{    through nodes and elements}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{N\PYZus{}n}\PY{p}{,} \PY{n}{N\PYZus{}e} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{nodes}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{elements}\PY{p}{)}
+            \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{N\PYZus{}n}\PY{p}{,} \PY{n}{N\PYZus{}n}\PY{p}{)}\PY{p}{)}
+            \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{N\PYZus{}n}\PY{p}{)}
+            
+            \PY{k}{for} \PY{n}{e} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N\PYZus{}e}\PY{p}{)}\PY{p}{:}
+                \PY{n}{Omega\PYZus{}e} \PY{o}{=} \PY{p}{(}\PY{n}{nodes}\PY{p}{[}\PY{n}{elements}\PY{p}{[}\PY{n}{e}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{nodes}\PY{p}{[}\PY{n}{elements}\PY{p}{[}\PY{n}{e}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+                \PY{n}{A\PYZus{}e} \PY{o}{=} \PY{n}{element\PYZus{}matrix}\PY{p}{(}\PY{n}{phi}\PY{p}{,} \PY{n}{Omega\PYZus{}e}\PY{p}{)}
+                \PY{n}{b\PYZus{}e} \PY{o}{=} \PY{n}{element\PYZus{}rhs}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{phi}\PY{p}{,} \PY{n}{Omega\PYZus{}e}\PY{p}{)}
+                
+                \PY{k}{for} \PY{n}{r} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{elements}\PY{p}{[}\PY{n}{e}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{for} \PY{n}{s} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{elements}\PY{p}{[}\PY{n}{e}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{A}\PY{p}{[}\PY{n}{elements}\PY{p}{[}\PY{n}{e}\PY{p}{]}\PY{p}{[}\PY{n}{r}\PY{p}{]}\PY{p}{,} \PY{n}{elements}\PY{p}{[}\PY{n}{e}\PY{p}{]}\PY{p}{[}\PY{n}{s}\PY{p}{]}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{A\PYZus{}e}\PY{p}{[}\PY{n}{r}\PY{p}{,} \PY{n}{s}\PY{p}{]}
+                    \PY{n}{b}\PY{p}{[}\PY{n}{elements}\PY{p}{[}\PY{n}{e}\PY{p}{]}\PY{p}{[}\PY{n}{r}\PY{p}{]}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{b\PYZus{}e}\PY{p}{[}\PY{n}{r}\PY{p}{]}
+                
+            \PY{k}{return} \PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{b}\PY{p}{)}
+        
+        
+        
+        \PY{k}{def} \PY{n+nf}{u\PYZus{}glob}\PY{p}{(}\PY{n}{nodes}\PY{p}{,} \PY{n}{elements}\PY{p}{,} \PY{n}{C}\PY{p}{,} \PY{n}{resolution}\PY{p}{)}\PY{p}{:}
+            \PY{n}{x\PYZus{}patches} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{n}{u\PYZus{}patches} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{e} \PY{o+ow}{in} \PY{n}{elements}\PY{p}{:}
+                \PY{p}{(}\PY{n}{x\PYZus{}L}\PY{p}{,} \PY{n}{x\PYZus{}R}\PY{p}{)} \PY{o}{=} \PY{p}{(}\PY{n}{nodes}\PY{p}{[}\PY{n}{e}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{nodes}\PY{p}{[}\PY{n}{e}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+                \PY{n}{d} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{e}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+                \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{resolution}\PY{p}{)}
+                \PY{n}{x} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{o}{*}\PY{p}{(}\PY{n}{x\PYZus{}L} \PY{o}{+} \PY{n}{x\PYZus{}R}\PY{p}{)} \PY{o}{+} \PY{l+m+mf}{0.5}\PY{o}{*}\PY{p}{(}\PY{n}{x\PYZus{}R} \PY{o}{\PYZhy{}} \PY{n}{x\PYZus{}L}\PY{p}{)}\PY{o}{*}\PY{n}{X}
+                \PY{n}{x\PYZus{}patches}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+                
+                \PY{n}{u\PYZus{}element} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{resolution}\PY{p}{)}
+                \PY{k}{for} \PY{n}{r} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{e}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{i} \PY{o}{=} \PY{n}{e}\PY{p}{[}\PY{n}{r}\PY{p}{]} \PY{c+c1}{\PYZsh{} global node indice}
+                    \PY{n}{u\PYZus{}element} \PY{o}{+}\PY{o}{=} \PY{n}{C}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{*} \PY{n}{phi\PYZus{}r}\PY{p}{(}\PY{n}{r}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{d}\PY{p}{)}
+                \PY{n}{u\PYZus{}patches}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{u\PYZus{}element}\PY{p}{)}
+            \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{n}{x\PYZus{}patches}\PY{p}{)}
+            \PY{n}{u} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{n}{u\PYZus{}patches}\PY{p}{)}
+            \PY{k}{return} \PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{u}\PY{p}{)}
+            
+            
+        \PY{c+c1}{\PYZsh{} Test assembly of linear equation system}
+        \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{k+kn}{from} \PY{n+nn}{numpy} \PY{k}{import} \PY{n}{tanh}\PY{p}{,} \PY{n}{pi}\PY{p}{,} \PY{n}{sin}\PY{p}{,} \PY{n}{cos}\PY{p}{,} \PY{n}{exp}
+        \PY{n}{d} \PY{o}{=} \PY{l+m+mi}{2}
+        \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{7}
+        
+        \PY{n}{Omega} \PY{o}{=} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{,} \PY{n}{pi}\PY{p}{)}
+        \PY{n}{f} \PY{o}{=} \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{o}{\PYZhy{}}\PY{n}{tanh}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{*} \PY{n}{sin}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{)} \PY{o}{*} \PY{n}{exp}\PY{p}{(}\PY{l+m+mf}{1.} \PY{o}{\PYZhy{}} \PY{l+m+mf}{0.75}\PY{o}{*} \PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.25}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Omega = (0, 1)}
+        \PY{c+c1}{\PYZsh{}f = lambda x: x*(1\PYZhy{}x)**8}
+        
+        
+        \PY{n}{elem\PYZus{}resolution} \PY{o}{=} \PY{l+m+mi}{40}
+        \PY{n}{x}   \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{Omega}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{Omega}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{elem\PYZus{}resolution}\PY{p}{)}
+        \PY{n}{phi} \PY{o}{=} \PY{n}{basis}\PY{p}{(}\PY{n}{d}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Initialize mesh}
+        \PY{p}{(}\PY{n}{nodes}\PY{p}{,} \PY{n}{elements}\PY{p}{)} \PY{o}{=} \PY{n}{init\PYZus{}mesh}\PY{p}{(}\PY{n}{Omega}\PY{p}{,} \PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{d}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} Assemble the global linear equation system }
+        \PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{b}\PY{p}{)} \PY{o}{=} \PY{n}{assemble}\PY{p}{(}\PY{n}{nodes}\PY{p}{,} \PY{n}{elements}\PY{p}{,} \PY{n}{phi}\PY{p}{,} \PY{n}{f}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} Solve the global linear equation system}
+        \PY{n}{C} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{b}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} Compute the approximation u(x) to f(x)}
+        \PY{p}{(}\PY{n}{x\PYZus{}u}\PY{p}{,} \PY{n}{u}\PY{p}{)} \PY{o}{=} \PY{n}{u\PYZus{}glob}\PY{p}{(}\PY{n}{nodes}\PY{p}{,} \PY{n}{elements}\PY{p}{,} \PY{n}{C}\PY{p}{,} \PY{l+m+mi}{40}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Plot results}
+        \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{n}{element\PYZus{}edges} \PY{o}{=} \PY{p}{[}\PY{n}{nodes}\PY{p}{[}\PY{n}{elements}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{N}\PY{p}{)}\PY{p}{]}
+        \PY{n}{element\PYZus{}edges}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{nodes}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+        \PY{n}{fig}\PY{o}{.}\PY{n}{set\PYZus{}size\PYZus{}inches}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}
+        \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+        
+        \PY{n}{e\PYZus{}plt} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{element\PYZus{}edges}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{n+nb}{len}\PY{p}{(}\PY{n}{element\PYZus{}edges}\PY{p}{)}\PY{p}{,} \PY{n}{ls}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{f\PYZus{}plt} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ls}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}f(x)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{u\PYZus{}plt} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}u}\PY{p}{,} \PY{n}{u}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ls}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}u(x)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+        \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f(x), u(x)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
